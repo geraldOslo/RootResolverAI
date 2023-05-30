@@ -21,11 +21,16 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 
 image_size = 256
-epochs = 10
+epochs = 30
 
+system = "win"
 
 # specify your directory and CSV file paths
-data_dir = r"\\aspasia.ad.fp.educloud.no\ec192\data\endo-radiographs\clips"
+if system == "linux":
+    data_dir = "/fp/homes01/u01/ec-gerald/My Projects/ec192/data/endo-radiographs/clips_balanced"
+else:
+    data_dir = r"\\aspasia.ad.fp.educloud.no\ec192\data\endo-radiographs\clips"
+    
 csv_file = os.path.join(data_dir, "codefile.csv")
 
 # load the CSV file using pandas
@@ -140,6 +145,7 @@ plt.title('Model accuracy')
 plt.ylabel('Accuracy')
 plt.xlabel('Epoch')
 plt.legend(['Train', 'Validation'], loc='upper left')
+#plt.savefig('accuracy.png')
 
 # Plot training & validation loss values
 plt.subplot(1, 2, 2)
@@ -150,3 +156,4 @@ plt.ylabel('Loss')
 plt.xlabel('Epoch')
 plt.legend(['Train', 'Validation'], loc='upper left')
 plt.show()
+plt.savefig('history.png')
