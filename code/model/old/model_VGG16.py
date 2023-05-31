@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 31 2023
-Second attempt to PAI scorling by AI using a simple CNN model
+Created on Fri May 26 12:58:45 2023
+First attempt to PAI scorling by AI using a model based on the VGG16 architecture
 
+The model was far too complicated and did not work
 @author: ec-gerald
 """
 
@@ -14,31 +15,24 @@ from sklearn.model_selection import train_test_split
 from keras.preprocessing.image import ImageDataGenerator
 
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import Adam
 
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler, ReduceLROnPlateau
-import tensorflow as tf
-
-
-system = "jupyter"
-
-# specify your directory and CSV file paths
-if system == "linux":
-    data_dir = "/fp/homes01/u01/ec-gerald/My Projects/ec192/data/endo-radiographs/clips"
-elif system == "win":
-    data_dir = r"\\aspasia.ad.fp.educloud.no\ec192\data\endo-radiographs\clips"
-else:
-    data_dir = "clips_balanced"
-    
-csv_file = os.path.join(data_dir, "codefile.csv")
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler
 
 image_size = 256
 epochs = 30
 
 system = "win"
 
+# specify your directory and CSV file paths
+if system == "linux":
+    data_dir = "/fp/homes01/u01/ec-gerald/My Projects/ec192/data/endo-radiographs/clips_balanced"
+else:
+    data_dir = r"\\aspasia.ad.fp.educloud.no\ec192\data\endo-radiographs\clips"
+    
+csv_file = os.path.join(data_dir, "codefile.csv")
 
 # load the CSV file using pandas
 df = pd.read_csv(csv_file)
@@ -60,6 +54,7 @@ target_size = (image_size, image_size)
 # specify batch size
 batch_size = 16  # adjust as needed
 
+# create generators
 # create generators
 train_generator = train_datagen.flow_from_dataframe(
     dataframe=train_df,
@@ -85,22 +80,36 @@ valid_generator = valid_datagen.flow_from_dataframe(
 
 def create_model():
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), padding='same', activation='relu', input_shape=(256, 256, 1)))
-    model.add(MaxPooling2D((2, 2)))
     
+    model.add(Conv2D(64, (3, 3), padding='same', activation='relu', input_shape=(256, 256, 1)))  # grayscale image
     model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-    model.add(MaxPooling2D((2, 2)))
-    
-    model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-    
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Conv2D(128, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(128, (3, 3), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Conv2D(256, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(256, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(256, (3, 3), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Conv2D(512, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(512, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(512, (3, 3), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
+    model.add(Conv2D(512, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(512, (3, 3), padding='same', activation='relu'))
+    model.add(Conv2D(512, (3, 3), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+
     model.add(Flatten())
-    model.add(Dense(64, activation='relu'))
-    model.add(Dropout(0.5))
-    #model.add(Dense(64, activation='relu'))
-    #model.add(Dropout(0.5))
+    model.add(Dense(4096, activation='relu'))
+    model.add(Dense(4096, activation='relu'))
     model.add(Dense(5, activation='softmax'))  # output layer with 5 nodes
 
-    opt = Adam(learning_rate=0.0001)
+    opt = Adam()
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 
     return model
@@ -113,7 +122,7 @@ model.summary()
 
 # Define the checkpoint and early stopping
 checkpoint = ModelCheckpoint("model.h5", monitor='val_loss', verbose=1, save_best_only=True, mode='min')
-early = EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=1, mode='min')
+early = EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='min')
 
 # This is just an example, the actual function depends on your needs
 def scheduler(epoch, lr):
@@ -131,8 +140,10 @@ history = model.fit(
     epochs=epochs,
     validation_data=valid_generator,
     validation_steps= len(valid_df) // batch_size,  # similar rule as steps_per_epoch but for the validation data
-    callbacks=[early, lr_schedule_callback]
+    callbacks=[checkpoint, early, lr_schedule_callback]
 )
+
+model.save("my_model.h5")
 
 # Plot training & validation accuracy values
 plt.figure(figsize=(14,5))
@@ -155,6 +166,3 @@ plt.xlabel('Epoch')
 plt.legend(['Train', 'Validation'], loc='upper left')
 plt.show()
 plt.savefig('history.png')
-
-model.save("my_model.h5")
-
