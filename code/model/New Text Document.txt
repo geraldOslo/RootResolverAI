@@ -1,0 +1,22 @@
+# Train the tuner
+tuner.search(train_generator,
+             validation_data=valid_generator,
+             epochs=50,
+             steps_per_epoch=train_steps_per_epoch,
+             validation_steps=valid_steps_per_epoch,
+             callbacks=[stop_early])
+
+# Get the best hyperparameters
+best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
+model = tuner.hypermodel.build(best_hps)
+model.summary()
+
+# Train the model
+history = model.fit(
+    train_generator,
+    steps_per_epoch=train_steps_per_epoch,
+    epochs=epochs,
+    validation_data=valid_generator,
+    validation_steps=valid_steps_per_epoch,
+    callbacks=[early]
+)

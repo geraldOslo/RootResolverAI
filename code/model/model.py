@@ -18,11 +18,11 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dropout
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import Adam
 
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler, ReduceLROnPlateau
+#from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler, ReduceLROnPlateau
 import tensorflow as tf
 
 
-system = "jupyter"
+system = "linux"
 
 # specify your directory and CSV file paths
 if system == "linux":
@@ -31,6 +31,8 @@ elif system == "win":
     data_dir = r"\\aspasia.ad.fp.educloud.no\ec192\data\endo-radiographs\clips"
 else:
     data_dir = "clips_balanced"
+    
+    
     
 csv_file = os.path.join(data_dir, "codefile.csv")
 
