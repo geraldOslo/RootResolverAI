@@ -13,6 +13,9 @@ RGB images obtained by cropping radiographs to 224 x 224 pixels centered on the 
 CSV-files with three columns: filename, PAI, weight
 
 ## Models and training
+Versions of the scripts here are snapshots. Several different amount of fine-tuning of layers, learnin rates and other hyperparameters were tested. Training data set is small and highly unbalanced:
+
+
 ### EfficientNet(B7)[3]
 Finetuning of last 3 blocks and classifier gave a validation accuracy of 0.56. 
 - Loss Function: Cross-entropy with per-sample weighting
@@ -21,10 +24,13 @@ Finetuning of last 3 blocks and classifier gave a validation accuracy of 0.56.
 Program code for training and evaluation [here](./code/models/EfficientNett_240529_3LFT.ipynb).
 
 ### ConvNext
-To be added
+More informatin be added
+Program code for training and evaluation [here](./code/models/ConvNeXt_240527.ipynb
+).
 
 ### ResNet-50
-To be added
+More informatin be added
+Program code for training and evaluation [here](./code/models/ResNet-50_240526.ipynb).
 
 ### VGG19
 Finetuning the entire pretrained model gave a validation accuracy of 0.46. 
