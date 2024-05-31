@@ -2,9 +2,6 @@
  Use AI to do scoring of endodontic  treatment outcomes
  Repository for the Python code used in the project
 
-# Update
-Mai 31 2024 - the repository will be updated with new code in the next few days
-
 ## Background
 Anonymized clips from periapical radiographs obtained and scored in the project Outcome of endodontic treatment at the Department of Endodontics, UiO[1] are used to train different machine learning models on PAI scoring. See repository EndodonticMeasurements [2] for details on the data aquisition.
 
@@ -30,7 +27,11 @@ To be added
 To be added
 
 ### VGG19
-To be added
+Finetuning the entire pretrained model gave a validation accuracy of 0.46. 
+- Loss Function: Cross-entropy with per-sample weighting
+- Optimizer: Adam (learning rate 0.0001, weight decay 1e-4)
+- Scheduler: Cosine annealing for learning rate adjustment
+Program code for training and evaluation [here](./code/models/VGG19_240529.ipynb).
 
 # References
 1. [Outcome of endodontic treatment at the Department of Endodontics, UiO](https://www.forskpro.uio.no/prosjekter/odont/iko/endodonti/resultatanalyse-av-endodontisk-behandling/)
