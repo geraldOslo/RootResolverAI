@@ -6,7 +6,7 @@
 Mai 31 2024 - the repository will be updated with new code in the next few days
 
 ## Background
-Periapical radiographs obtained and scored in the project <to come> are used to train different machine learning models on PAI scoring. See repository EndodonticMeasurements [1] for details on the data aquisition.
+Periapical radiographs obtained and scored in the project Outcome of endodontic treatment at the Department of Endodontics, UiO[1] are used to train different machine learning models on PAI scoring. See repository EndodonticMeasurements [2] for details on the data aquisition.
 
 
 ## Data
@@ -33,7 +33,8 @@ To be added
 To be added
 
 # References
-1. GitHub repository: [EndodonticMeasurements](https://github.com/geraldOslo/EndodonticMeasurements)
+1. [Outcome of endodontic treatment at the Department of Endodontics, UiO](https://www.forskpro.uio.no/prosjekter/odont/iko/endodonti/resultatanalyse-av-endodontisk-behandling/)
+2. GitHub repository: [EndodonticMeasurements](https://github.com/geraldOslo/EndodonticMeasurements)
 
 
 
