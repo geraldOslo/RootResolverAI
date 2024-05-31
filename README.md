@@ -25,11 +25,12 @@ Program code for training and evaluation [here](./code/models/EfficientNett_2405
 
 ### ConvNext
 More informatin be added
-Program code for training and evaluation [here](./code/models/ConvNeXt_240527.ipynb
-).
+
+Program code for training and evaluation [here](./code/models/ConvNeXt_240527.ipynb).
 
 ### ResNet-50
 More informatin be added
+
 Program code for training and evaluation [here](./code/models/ResNet-50_240526.ipynb).
 
 ### VGG19
