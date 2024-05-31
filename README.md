@@ -6,7 +6,7 @@
 Mai 31 2024 - the repository will be updated with new code in the next few days
 
 ## Background
-Periapical radiographs obtained and scored in the project <to come> are used to train different machine learning models on PAI scoring. See this repository [EndodonticMeasurements][1] details on the data aquisition.
+Periapical radiographs obtained and scored in the project <to come> are used to train different machine learning models on PAI scoring. See this repository [1] details on the data aquisition.
 
 
 ## Data
@@ -29,7 +29,7 @@ Finetuning of last 3 blocks and classifier gave a validation accuracy of 0.56.
 ### VGG19
 
 # References
-[1]: https://github.com/geraldOslo/EndodonticMeasurements
+1. [EndodonticMeasurements](https://github.com/geraldOslo/EndodonticMeasurements)
 
 
 
