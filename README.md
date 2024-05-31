@@ -9,10 +9,6 @@ Mai 31 2024 - the repository will be updated with new code in the next few days
 Periapical radiographs obtained and scored in the project <to come> are used to train different machine learning models on PAI scoring. See this repository [EndodonticMeasurements][1] details on the data aquisition.
 
 
-This is a reference to [Google][1].
-
-[1]: https://www.google.com
-
 ## Data
 ### Image files
 RGB images obtained by cropping radiographs to 224 x 224 pixels centered on the apex.
