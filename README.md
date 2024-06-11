@@ -21,7 +21,7 @@ Finetuning of last 3 blocks and classifier gave a validation accuracy of 0.56.
 - Loss Function: Cross-entropy with per-sample weighting
 - Optimizer: Adam (learning rate 0.0001, weight decay 1e-4)
 - Scheduler: Cosine annealing for learning rate adjustment
-Program code for training and evaluation [here](./code/models/EfficientNett_240529_3LFT.ipynb).
+Program code for training and evaluation [here](./code/models/EfficientNet_240529_3LFT.ipynb).
 
 ### ConvNext
 More informatin be added
